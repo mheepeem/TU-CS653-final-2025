@@ -1,7 +1,4 @@
-# CS653 Final Exam
-
-# ข้อ 1
-
+#STEP:1
 - **สร้าง S3 bucket:** สร้าง S3 bucket ตั้งชื่อตามรูปแบบที่กำหนด (เช่น `studentxxxx-yyyy-customers`) และสร้างโฟลเดอร์ชื่อ `csv/` ภายใน bucket นั้น.
 - **อัปโหลดไฟล์:** อัปโหลดไฟล์ `customers.csv` เข้าไปในโฟลเดอร์ `csv/` ใน S3 bucket.
 - **สร้าง Glue Database:** สร้าง Glue Database ใน Glue Data Catalog ตั้งชื่อตามที่กำหนด (เช่น `customers_xxxx_yyyy`).
@@ -9,9 +6,7 @@
 - **รัน Glue Crawler:** รัน Crawler เพื่อให้ Glue สแกนไฟล์ใน S3 และสร้าง Table Definition ใน Data Catalog.
 - **ตรวจสอบ Table:** ตรวจสอบว่ามี Table ถูกสร้างขึ้นใน Glue Database ที่กำหนดใน Glue Data Catalog แล้ว (ควรมีชื่อตาราง เช่น `csv`).
 - **ใช้ Athena คิวรีข้อมูล:** ไปที่ Amazon Athena เลือก Database และ Table ที่ Glue สร้างไว้ แล้วเขียนคำสั่ง SQL เพื่อคิวรีข้อมูลลูกค้าที่มาจาก 'Thailand' เช่น `SELECT * FROM "ชื่อฐานข้อมูล"."ชื่อตาราง" WHERE country = 'Thailand';`
-
-# ข้อ 2
-
+#STEP:2
 - **สร้าง S3 bucket ใหม่และโฟลเดอร์:** สร้าง S3 bucket ใหม่สำหรับข้อมูลสินค้า (เช่น `studentxxxx-yyyy-products`) และสร้างโฟลเดอร์ชื่อ `csv/` ภายใน bucket นั้น.
 - **อัปโหลดไฟล์:** อัปโหลดไฟล์ `products.csv` เข้าไปในโฟลเดอร์ `csv/` ใน S3 bucket ใหม่.
 - **สร้าง Glue Database ใหม่:** สร้าง Glue Database ใหม่ใน Glue Data Catalog สำหรับข้อมูลสินค้า (เช่น `products_xxxx_yyyy`).
@@ -34,7 +29,7 @@ ORDER BY
 LIMIT 1;
 ```
 
-# ข้อ 3
+#STEP:3
 
 - **สร้าง SNS Topic และสมัครรับข้อมูล:** สร้าง SNS Topic แบบ **Standard** (ตั้งชื่อตามรูปแบบ เช่น `temperature-alerts-xxxx-yyyy`) และทำการสมัครรับข้อมูลแบบ **Email subscription** โดยใช้ที่อยู่อีเมลของคุณ และ **กดยืนยัน (Confirm)** ในอีเมลที่ได้รับจาก AWS.
 - **สร้าง DynamoDB Table:** สร้าง DynamoDB Table (ตั้งชื่อตามรูปแบบ เช่น `iot-temperature-data-xxxx-yyyy`) โดยกำหนด **Partition Key** เป็น **`roomid`** ชนิดข้อมูล **String**.
@@ -180,7 +175,7 @@ LIMIT 1;
     - ในช่อง **Message payload** พิมพ์ข้อมูลอุณหภูมิใน **Format แบบ JSON กระชับ (ไม่มี Newline หรือ Indent เยอะๆ)** เช่น **`{"roomid":"R001","timestamp":"2025-05-07T19:15:00Z","temperature":5.5}`**.
     - ทำการ Publish ข้อความ **10 ครั้ง** โดยมีค่าอุณหภูมิ **อยู่ในช่วง 2°C - 8°C 3 ครั้ง** และ **นอกช่วง 2°C - 8°C  7 ครั้ง**.
 
-# ข้อ 4
+#STEP:4
 
 - สร้าง Cloud9 Environment ชื่อ `feed-temperature6120-3987` โดยเลือก Instance แบบ `t2.micro`, ระบบปฏิบัติการ Amazon Linux 2023 และเชื่อมต่อแบบ **SSH** แทน SSM (เนื่องจากบัญชี AWS Academy ไม่มีสิทธิ์สร้าง IAM Role เอง) จากนั้นรอให้ Environment สร้างเสร็จและเข้าสู่หน้าจอ Terminal
 - สร้าง S3 Bucket ชื่อ `s3-temperature-store-6120-3987` โดยใช้ Region เดียวกับ Cloud9 และตั้งค่าเริ่มต้นทั้งหมดไม่ต้องเปิด public access
@@ -218,7 +213,7 @@ LIMIT 1;
 
 - ตรวจสอบ S3 Bucket ที่ `s3-temperature-store-6120-3987` จะพบไฟล์ `.json.gz` ปรากฏภายใน path ที่สร้างโดย Firehose โดยอัตโนมัติตามวันและเวลา เช่น `/2025/05/08/06/` ขนาดไฟล์ประมาณ 7KB ซึ่งภายในจะเป็นข้อมูล JSON ที่ส่งมาจาก Python script
 
-# ข้อ 5
+#STEP:5
 
 - อัปโหลดไฟล์ `feedbacks.csv` ไปยัง S3 ที่ path: `s3://student6120-3987-ml/raw/`
     - สร้าง S3 Bucket
@@ -353,7 +348,7 @@ WHERE sentiment IS NOT NULL
 GROUP BY sentiment;
 ```
 
-# ข้อ  6
+#STEP:6
 
 - สร้าง Bucket `s3://studentxxxx-yyyy-ml/` > สร้าง Folder raw
 - แตกไฟล์และอัปโหลดภาพไปยัง S3 ที่ path: `s3://studentxxxx-yyyy-ml/raw/`
